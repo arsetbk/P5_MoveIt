@@ -1,5 +1,6 @@
 package com.parkit.parkingsystem.config;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -7,13 +8,19 @@ import java.sql.*;
 
 public class DataBaseConfig {
 
+    private static Dotenv env = Dotenv.load();
+
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
+    private static final String USERNAME = env.get("DB_USERNAME");
+    private static final String PASSWORD = env.get("DB_PASSWORD");
+
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
+        System.out.println("DBConnectée");
         return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/prod","root","rootroot");
+                "jdbc:mysql://localhost:3306/prod", USERNAME, PASSWORD);
     }
 
     public void closeConnection(Connection con){

@@ -9,20 +9,15 @@ public class FareCalculatorService {
 
     public void calculateFare(Ticket ticket){
 
-        Calendar calendarIn = Calendar.getInstance();
-        Calendar calendarOut = Calendar.getInstance();
-
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
 
-        calendarIn.setTime(ticket.getInTime());
-        calendarOut.setTime(ticket.getOutTime());
-        int inHour = calendarIn.get(Calendar.HOUR);
-        int outHour = calendarOut.get(Calendar.HOUR);
+        double inTime = ticket.getInTime().getTime();
+        double outTime = ticket.getOutTime().getTime();
 
-        //TODO: Some tests are failing here. Need to check if this logic is correct
-        int duration = outHour - inHour;
+        //difference between the two timestamps then convert in hours
+        double duration = (outTime - inTime) / (1000*60*60);
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
@@ -33,7 +28,7 @@ public class FareCalculatorService {
                 ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
                 break;
             }
-            default: throw new IllegalArgumentException("Unkown Parking Type");
+            default: throw new IllegalArgumentException("Unknown Parking Type");
         }
     }
 }

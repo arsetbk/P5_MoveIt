@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -50,7 +51,6 @@ public class ParkingDataBaseIT {
 
     @AfterAll
     private static void tearDown(){
-
     }
 
     @Test
@@ -65,8 +65,13 @@ public class ParkingDataBaseIT {
     @Test
     public void testParkingLotExit(){
         testParkingACar();
-        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-        parkingService.processExitingVehicle();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+            ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+            parkingService.processExitingVehicle();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         //TODO: check that the fare generated and out time are populated correctly in the database
         Ticket testTicket = ticketDAO.getTicket("ABCDEF");
         assertNotNull(testTicket.getOutTime());

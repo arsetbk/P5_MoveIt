@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ class TicketDAOTest {
 
 
     private ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
-    private Date inTime = new Date();
+    private LocalDateTime inTime = LocalDateTime.now();
     private Ticket ticket;
 
     @BeforeEach
@@ -33,7 +34,7 @@ class TicketDAOTest {
         dataBasePrepareService.clearDataBaseEntries();
 
         ticket = new Ticket();
-        inTime.setTime( System.currentTimeMillis() - (  60 * 60 * 1000) );
+        LocalDateTime inTime = LocalDateTime.now().minusMinutes(60);
         ticket.setVehicleRegNumber("Test");
         ticket.setParkingSpot(parkingSpot);
         ticket.setInTime(inTime);
@@ -67,7 +68,7 @@ class TicketDAOTest {
     @Test
     void updateTicket() {
         ticketDAO.saveTicket(ticket);
-        Date outTime = new Date();
+        LocalDateTime outTime = LocalDateTime.now();
 
         Ticket ticketToUpdate = ticketDAO.getTicket("Test");
         ticketToUpdate.setPrice(3.5);

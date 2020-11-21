@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -53,7 +54,7 @@ public class ParkingServiceIncomingTest {
     }
 
     @Test
-    public void processIncomingVehicleTest() throws Exception {
+    public void processIncomingVehicleTest() {
 
         when(ticketDAO.getTicket(anyString())).thenReturn(null);
         parkingService.processIncomingVehicle();
@@ -61,10 +62,10 @@ public class ParkingServiceIncomingTest {
     }
 
     @Test
-    public void processIncomingRegularVehicleTest() throws Exception {
+    public void processIncomingRegularVehicleTest() {
 
         Ticket ticket = new Ticket();
-        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+        ticket.setInTime(LocalDateTime.now().minusHours(1));
         ticket.setVehicleRegNumber("ABCDEF");
 
         when(ticketDAO.getTicket(anyString())).thenReturn(ticket);

@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
+import java.util.List;
 
 public class ParkingService {
 
@@ -110,6 +111,14 @@ public class ParkingService {
             Date outTime = new Date();
             ticket.setOutTime(outTime);
             fareCalculatorService.calculateFare(ticket);
+            List<Ticket> tickets = ticketDAO.getTickets(vehicleRegNumber);
+
+            //If Regular client then proceed with the discount
+            if(tickets.size() > 1){
+                double ticketPrice = ticket.getPrice() - (ticket.getPrice() * 0.05);
+                ticket.setPrice(ticketPrice);
+            }
+
             ticketDAO.updateTicket(ticket);
             if(ticketDAO.updateTicket(ticket)) {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();

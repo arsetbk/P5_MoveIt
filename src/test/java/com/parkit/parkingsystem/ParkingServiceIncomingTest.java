@@ -41,7 +41,7 @@ public class ParkingServiceIncomingTest {
             when(inputReaderUtil.readSelection()).thenReturn(1);
             when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
 
-            when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("Other");
+            when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 
             ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
 

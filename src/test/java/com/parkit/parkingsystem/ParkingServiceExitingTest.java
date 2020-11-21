@@ -15,7 +15,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -57,6 +60,26 @@ public class ParkingServiceExitingTest {
     public void processExitingVehicleTest(){
         parkingService.processExitingVehicle();
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
+    }
+
+    @Test
+    public void processExitingRegularVehicleTest(){
+        List<Ticket> tickets = new ArrayList<Ticket>();
+
+        Ticket ticket = new Ticket();
+        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+        ticket.setVehicleRegNumber("ABCDEF");
+        tickets.add(ticket);
+
+        Ticket ticketBis = new Ticket();
+        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+        ticket.setVehicleRegNumber("ABCDEF");
+        tickets.add(ticketBis);
+
+        when(ticketDAO.getTickets(anyString())).thenReturn(tickets);
+
+        parkingService.processExitingVehicle();
+        verify(ticketDAO, Mockito.times(1)).getTickets(anyString());
     }
 
 }

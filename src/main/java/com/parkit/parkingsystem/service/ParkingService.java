@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
+import java.util.List;
 
 public class ParkingService {
 
@@ -44,7 +45,13 @@ public class ParkingService {
                 ticket.setPrice(0);
                 ticket.setInTime(inTime);
                 ticket.setOutTime(null);
+                Ticket regularTicket = ticketDAO.getTicket(vehicleRegNumber);
                 ticketDAO.saveTicket(ticket);
+
+                //Asking if the vehicleRegNumber is already in the DB
+                if(regularTicket != null)
+                    System.out.println("Welcome back! As a recurring user of our parking lot, you'll benefit from a 5% discount.");
+
                 System.out.println("Generated Ticket and saved in DB");
                 System.out.println("Please park your vehicle in spot number:"+parkingSpot.getId());
                 System.out.println("Recorded in-time for vehicle number:"+vehicleRegNumber+" is:"+inTime);
@@ -104,6 +111,14 @@ public class ParkingService {
             Date outTime = new Date();
             ticket.setOutTime(outTime);
             fareCalculatorService.calculateFare(ticket);
+            List<Ticket> tickets = ticketDAO.getTickets(vehicleRegNumber);
+
+            //If Regular client then proceed with the discount
+            if(tickets.size() > 1){
+                double ticketPrice = ticket.getPrice() - (ticket.getPrice() * 0.05);
+                ticket.setPrice(ticketPrice);
+            }
+
             ticketDAO.updateTicket(ticket);
             if(ticketDAO.updateTicket(ticket)) {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();

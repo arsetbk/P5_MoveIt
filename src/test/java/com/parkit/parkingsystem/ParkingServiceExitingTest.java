@@ -31,6 +31,7 @@ public class ParkingServiceExitingTest {
     @Mock
     private static TicketDAO ticketDAO;
 
+    @BeforeEach
     private void setUpPerTest() {
         try {
             when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
@@ -54,7 +55,6 @@ public class ParkingServiceExitingTest {
 
     @Test
     public void processExitingVehicleTest(){
-        setUpPerTest();
         parkingService.processExitingVehicle();
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
     }

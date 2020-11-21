@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ParkingServiceExitingTest {
 
             ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
             Ticket ticket = new Ticket();
-            ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+            ticket.setInTime(LocalDateTime.now().minusHours(1));
             ticket.setParkingSpot(parkingSpot);
             ticket.setVehicleRegNumber("ABCDEF");
             when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
@@ -67,12 +68,12 @@ public class ParkingServiceExitingTest {
         List<Ticket> tickets = new ArrayList<Ticket>();
 
         Ticket ticket = new Ticket();
-        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+        ticket.setInTime(LocalDateTime.now().minusHours(1));
         ticket.setVehicleRegNumber("ABCDEF");
         tickets.add(ticket);
 
         Ticket ticketBis = new Ticket();
-        ticket.setInTime(new Date(System.currentTimeMillis() - (60*60*1000)));
+        ticket.setInTime(LocalDateTime.now().minusHours(1));
         ticket.setVehicleRegNumber("ABCDEF");
         tickets.add(ticketBis);
 

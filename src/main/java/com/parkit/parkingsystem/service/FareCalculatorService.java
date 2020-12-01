@@ -7,8 +7,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
+/**
+ * Class Service with the method calculating the ticket price
+ */
 public class FareCalculatorService {
 
+    /**
+     * @param ticket a Ticket Object representing the user's ticket
+     */
     public void calculateFare(Ticket ticket){
 
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().isBefore(ticket.getInTime())) ){
@@ -18,10 +24,9 @@ public class FareCalculatorService {
         LocalDateTime inTime = ticket.getInTime();
         LocalDateTime outTime = ticket.getOutTime();
 
-        //difference between the two timestamps then convert in hours
+        //difference between the two LocaleDateTime then convert in hours
         Duration d = Duration.between(inTime, outTime);
         double duration = (double) d.toMinutes()/60;
-        //double duration = (outTime - inTime) / (1000*60*60);
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {

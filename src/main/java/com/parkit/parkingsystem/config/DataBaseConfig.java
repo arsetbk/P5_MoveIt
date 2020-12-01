@@ -6,6 +6,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
+/**
+ * Class containing the Database configuration
+ */
 public class DataBaseConfig {
 
     private static Dotenv env = Dotenv.load();
@@ -14,7 +17,9 @@ public class DataBaseConfig {
     private static final String USERNAME = env.get("DB_USERNAME");
     private static final String PASSWORD = env.get("DB_PASSWORD");
 
-
+    /**
+     * @return a Connection Object Instantiation to open
+     */
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -23,6 +28,9 @@ public class DataBaseConfig {
                 "jdbc:mysql://localhost:3306/prod", USERNAME, PASSWORD);
     }
 
+    /**
+     * @param con a Connection Object Instantiation to close
+     */
     public void closeConnection(Connection con){
         if(con!=null){
             try {
@@ -34,6 +42,9 @@ public class DataBaseConfig {
         }
     }
 
+    /**
+     * @param ps a PreparedStatement Object Instantiation to close
+     */
     public void closePreparedStatement(PreparedStatement ps) {
         if(ps!=null){
             try {
@@ -44,7 +55,9 @@ public class DataBaseConfig {
             }
         }
     }
-
+    /**
+     * @param rs a ResultSet Object Instantiation to close
+     */
     public void closeResultSet(ResultSet rs) {
         if(rs!=null){
             try {

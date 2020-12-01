@@ -1,8 +1,10 @@
 package com.parkit.parkingsystem.model;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 
+/**
+ * Class Model describing the ParkingSpot Object
+ */
 public class Ticket {
     private int id;
     private ParkingSpot parkingSpot;

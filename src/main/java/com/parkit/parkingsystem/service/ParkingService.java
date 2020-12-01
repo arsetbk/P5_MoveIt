@@ -11,6 +11,11 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
+/**
+ * Class Service processing the different phase of the user life
+ * (getting in and leaving the parking)
+ */
 public class ParkingService {
 
     private static final Logger logger = LogManager.getLogger("ParkingService");
@@ -21,6 +26,11 @@ public class ParkingService {
     private final ParkingSpotDAO parkingSpotDAO;
     private final   TicketDAO ticketDAO;
 
+    /**
+     * @param inputReaderUtil an instantiation of inputReaderUtil class
+     * @param parkingSpotDAO an instantiation of parkingSpotDAO class
+     * @param ticketDAO an instantiation of ticketDAO class
+     */
     public ParkingService(InputReaderUtil inputReaderUtil, ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO){
         this.inputReaderUtil = inputReaderUtil;
         this.parkingSpotDAO = parkingSpotDAO;
@@ -61,11 +71,18 @@ public class ParkingService {
         }
     }
 
+    /**
+     * @return a String which is the vehicle register number of the user
+     */
     private String getVehicleRegNumber() throws Exception {
         System.out.println("Please type the vehicle registration number and press enter key");
         return inputReaderUtil.readVehicleRegistrationNumber();
     }
 
+    /**
+     * @return a ParkingSpot Object which is the next
+     * spot available in the parking
+     */
     public ParkingSpot getNextParkingNumberIfAvailable(){
         int parkingNumber;
         ParkingSpot parkingSpot = null;
@@ -85,6 +102,9 @@ public class ParkingService {
         return parkingSpot;
     }
 
+    /**
+     * @return a ParkingType Object which is the vehicle type of the user
+     */
     private ParkingType getVehicleType(){
         System.out.println("Please select vehicle type from menu");
         System.out.println("1 CAR");

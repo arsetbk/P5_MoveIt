@@ -11,11 +11,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * Class DAO processing the interactions of the ParkingSpot Object with
+ * the Database
+ */
 public class ParkingSpotDAO {
     private static final Logger logger = LogManager.getLogger("ParkingSpotDAO");
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+    /**
+     * @param parkingType a ParkingType Object which is the User's vehicle type
+     * @return an int which is the next available spot for this type
+     */
     public int getNextAvailableSlot(ParkingType parkingType){
         Connection con = null;
         int result=-1;
@@ -37,8 +45,12 @@ public class ParkingSpotDAO {
         return result;
     }
 
+    /**
+     * @param parkingSpot a ParkingSpot Object with a state to update
+     * @return a boolean giving the state of the update
+     */
     public boolean updateParking(ParkingSpot parkingSpot){
-        //update the availability fo that parking slot
+        //update the availability for that parking slot
         Connection con = null;
         try {
             con = dataBaseConfig.getConnection();

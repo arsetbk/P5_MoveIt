@@ -14,12 +14,20 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Class DAO processing the interactions of the ParkingSpot Object with
+ * the Database
+ */
 public class TicketDAO {
 
     private static final Logger logger = LogManager.getLogger("TicketDAO");
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+    /**
+     * @param ticket a Ticket Object thas is going to be save in DB
+     * @return a boolean describing the save execution state
+     */
     public boolean saveTicket(Ticket ticket){
         Connection con = null;
         try {
@@ -44,6 +52,10 @@ public class TicketDAO {
         return false;
     }
 
+    /**
+     * @param vehicleRegNumber a String representing the user vehicle
+     * @return a Ticket Object with the RegNumber searched
+     */
     public Ticket getTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;
@@ -75,6 +87,10 @@ public class TicketDAO {
         return ticket;
     }
 
+    /**
+     * @param vehicleRegNumber a String representing the user vehicle
+     * @return a List of Ticket Object representing the history of the user
+     */
     public List<Ticket> getTickets(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket;
@@ -101,6 +117,10 @@ public class TicketDAO {
         return tickets;
     }
 
+    /**
+     * @param ticket a Ticket Object that is the ticket to update
+     * @return a boolean describing the state of the update
+     */
     public boolean updateTicket(Ticket ticket) {
         Connection con = null;
         try {

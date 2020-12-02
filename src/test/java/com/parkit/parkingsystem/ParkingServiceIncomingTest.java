@@ -3,7 +3,6 @@ package com.parkit.parkingsystem;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
-import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
@@ -15,7 +14,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -63,7 +61,6 @@ public class ParkingServiceIncomingTest {
 
     @Test
     public void processIncomingRegularVehicleTest() {
-
         Ticket ticket = new Ticket();
         ticket.setInTime(LocalDateTime.now().minusHours(1));
         ticket.setVehicleRegNumber("ABCDEF");
@@ -72,4 +69,13 @@ public class ParkingServiceIncomingTest {
         parkingService.processIncomingVehicle();
         verify(ticketDAO, Mockito.times(1)).getTicket(anyString());
     }
+
+    @Test
+    public void processIncomingBikeVehicleTest() {
+        when(inputReaderUtil.readSelection()).thenReturn(2);
+        when(ticketDAO.getTicket(anyString())).thenReturn(null);
+        parkingService.processIncomingVehicle();
+        verify(ticketDAO, Mockito.times(1)).saveTicket(any(Ticket.class));
+    }
+
 }

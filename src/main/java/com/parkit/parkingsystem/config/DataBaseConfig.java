@@ -11,7 +11,7 @@ import java.sql.*;
  */
 public class DataBaseConfig {
 
-    private static Dotenv env = Dotenv.load();
+    private static final Dotenv env = Dotenv.load();
 
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
     private static final String USERNAME = env.get("DB_USERNAME");

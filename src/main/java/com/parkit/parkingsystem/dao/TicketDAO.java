@@ -25,7 +25,7 @@ public class TicketDAO {
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     /**
-     * @param ticket a Ticket Object thas is going to be save in DB
+     * @param ticket a Ticket Object that is going to be save in DB
      * @return a boolean describing the save execution state
      */
     public boolean saveTicket(Ticket ticket){

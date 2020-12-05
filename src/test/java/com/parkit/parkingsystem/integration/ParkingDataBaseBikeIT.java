@@ -53,7 +53,7 @@ public class ParkingDataBaseBikeIT {
     }
 
     @Test
-    public void testParkingACar(){
+    public void testParkingABike(){
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         Ticket testTicket = ticketDAO.getTicket("ABCDEF");
@@ -62,7 +62,7 @@ public class ParkingDataBaseBikeIT {
 
     @Test
     public void testParkingLotExit(){
-        testParkingACar();
+        testParkingABike();
         try {
             TimeUnit.SECONDS.sleep(1);
             ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);

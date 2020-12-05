@@ -5,7 +5,6 @@ import com.parkit.parkingsystem.model.Ticket;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 
 /**
  * Class Service with the method calculating the ticket price

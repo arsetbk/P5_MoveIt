@@ -38,7 +38,7 @@ This code uses the default root account to connect and the password can be set a
 Post installation of MySQL, Java and Maven, you will have to set up the tables and data in the data base.
 For this, please run the sql commands present in the `Data.sql` file under the `resources` folder in the code base.
 
-Add a .env file at the root of the project fiiling it as follow :
+Add a .env file at the root of the project filling it as follows :
 DB_USERNAME=your_mysql_username
 DB_PASSWORD=your_mysql_password
 
@@ -51,3 +51,7 @@ The app has unit tests and integration tests written. More of these need to be a
 To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
 
 `mvn test`
+
+To run the Integration Tests along the Unit tests you need to execute the below command :
+
+`mvn verify`

@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,6 +79,8 @@ public class ParkingServiceExitingTest {
 
         parkingService.processExitingVehicle();
         verify(ticketDAO, Mockito.times(1)).getTickets(anyString());
+        Ticket ticketRegular = ticketDAO.getTicket("ABCDEF");
+        assertEquals(0.7125, ticketRegular.getPrice());
     }
 
 }
